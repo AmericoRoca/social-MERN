@@ -46,5 +46,5 @@ app.get("/test", (req,res) =>{
 
 //Listening port
 app.listen(port, () =>{
-    console.log("Server running on port: http://localhost:"+port)
+    console.log("Server running on port: http://localhost:"+port+"/api")
 })
