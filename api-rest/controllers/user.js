@@ -1,6 +1,7 @@
 //importar dependencias y modulos
 const User = require("../models/User")
 const bcrypt = require("bcrypt")
+const { use } = require("../routes/user")
 
 
 //test actions
@@ -18,7 +19,8 @@ const register = async (req,res) => {
         
         return res.status(400).send({
             message: "Missing data",
-            status: "Error"
+            status: "Error",
+            params
         });
 
     } 
@@ -46,25 +48,42 @@ const register = async (req,res) => {
         return res.status(500).json({ status: "Error", message: "Error in the users request" });
     }
 
-        //cifrar la contraseña
+        //Cifrar la contraseña
 
-        
+    try {
 
-        //guardar usuario en la base de datos
+        const hashedPassword = await bcrypt.hash(user_to_save.password, 10);
+        user_to_save.password = hashedPassword;
+
+    } catch (error) {
+
+        return res.status(500).json({
+            status: "Error",
+            message: "Error in hashing the password",
+        });
+    }
 
 
-        //devolver resultado
+    try {
 
-
+        const savedUser = await user_to_save.save();
 
         return res.status(200).send({
-            message: "Register working",
-            status: "Success",
-            user_to_save
-        })
+              message: "Register working",
+              status: "Success",
+              user_to_save: savedUser,
+        });
 
+    } catch (error) {
+
+        return res.status(500).json({
+              status: "Error",
+              message: "Error in saving the user",
+        });
+
+    }
         
-   
+
 }
 
 
