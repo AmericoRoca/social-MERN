@@ -11,10 +11,12 @@ const test = (req,res) =>{
 
 const register = async (req,res) => {
 
-    //recoger valores a guardar 
+    //recoger valores a guardar
+    
     let params = req.body;
 
     //comprobar que llegan
+
     if(!params.name || !params.email || !params.password || !params.username){
         
         return res.status(400).send({
@@ -26,10 +28,12 @@ const register = async (req,res) => {
     } 
 
     //Crear objeto de usuario
+
     let user_to_save = new User(params);
     
 
     //control usuarios duplicados
+
     try {
         const users = await User.find({
             $or: [
@@ -48,7 +52,8 @@ const register = async (req,res) => {
         return res.status(500).json({ status: "Error", message: "Error in the users request" });
     }
 
-        //Cifrar la contraseña
+    
+    //Cifrar la contraseña
 
     try {
 
