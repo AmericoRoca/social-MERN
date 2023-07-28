@@ -25,6 +25,15 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 //Upload routes
+const userRoutes = require("./routes/user");
+const publicationRoutes = require("./routes/publication");
+const followRoutes = require("./routes/follow");
+
+
+app.use("/api/user", userRoutes)
+app.use("/api/publication", publicationRoutes)
+app.use("/api/follow", followRoutes)
+
 
 //test route
 app.get("/test", (req,res) =>{
