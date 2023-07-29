@@ -7,7 +7,7 @@ const jwt = require("../services/jwt")
 const test = (req, res) => {
   return res
     .status(200)
-    .send({ message: "Message send from controller: user" });
+    .send({ message: "Message send from controller: user", user: req.user });
 };
 
 const register = async (req, res) => {
