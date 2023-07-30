@@ -1,7 +1,8 @@
 //importar dependencias y modulos
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
-const jwt = require("../services/jwt")
+const jwt = require("../services/jwt");
+const mongoosePagination = require("mongoose-pagination")
 
 //test actions
 const test = (req, res) => {
@@ -137,8 +138,87 @@ const login = async(req, res) => {
   }
 };
 
+const profile = async (req,res) =>{
+
+  try {
+     //Get the id params of user form url
+    let id = req.params.id;
+
+    //Query to get data user
+    const user = await User.findById(id)
+      .select({password: 0, role: 0});
+
+    if(!user){
+      res.status(404).send({
+        message: "User doesn't exists",
+        status: "Error",
+        user
+      });
+    }
+
+    //Return result
+    res.status(200).send({
+      message: "User exits!!",
+      status: "Success",
+      user
+    });
+
+  } catch (error) {
+    res.status(404).send({
+      message: "User doesn't exists",
+      status: "Error"
+    });
+  }
+ 
+}
+
+const list = async(req,res) => {
+
+  try {
+
+    //Control where the page we are
+    let page = 1;
+
+    const params = req.params.page;
+
+    if(params){
+        page = parseInt(params)
+    }
+
+
+   // Query with mongoose using pagination
+   let items_per_page = 5;
+
+   const result = await User.find().sort('_id').paginate({ page, items_per_page });
+
+   console.log("total: "+result.totalDocs);
+   console.log("users: "+result.docs);
+   console.log("pages: "+result.totalPages);
+
+   res.status(200).send({
+    message: "Working",
+    status: "Success",
+    page: page,
+    items_per_page: items_per_page,
+    total: result.totalDocs, // Use result.totalDocs to get the total count of documents
+    users: result.docs, // Use result.docs to get the paginated users
+    pages: result.totalPages, // Use result.totalPages to get the total number of pages
+  });
+
+  } catch (error) {
+    res.status(500).send({
+      message: "Error in the query",
+      status: "Error"
+    });
+  }
+
+  
+}
+
 module.exports = {
   test,
   register,
   login,
+  profile,
+  list
 };
