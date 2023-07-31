@@ -172,48 +172,53 @@ const profile = async (req,res) =>{
  
 }
 
-const list = async(req,res) => {
-
+const list = async (req, res) => {
   try {
-
-    //Control where the page we are
+    // Obtener el número de página de la consulta
     let page = 1;
-
-    const params = req.params.page;
-
-    if(params){
-        page = parseInt(params)
+    if (req.params.page) {
+      page = parseInt(req.params.page);
     }
 
+    console.log('Page:', page);
 
-   // Query with mongoose using pagination
-   let items_per_page = 5;
+    // Número de resultados por página
+    let items_per_page = 3;
+    if (req.query.items_per_page) {
+      items_per_page = parseInt(req.query.items_per_page);
+    }
 
-   const result = await User.find().sort('_id').paginate({ page, items_per_page });
+    // Calcular el número de documentos a omitir en la consulta
+    const skipDocuments = (page - 1) * items_per_page;
 
-   console.log("total: "+result.totalDocs);
-   console.log("users: "+result.docs);
-   console.log("pages: "+result.totalPages);
+    // Consulta con paginación utilizando skip() y limit()
+    const result = await User.find().sort('_id').skip(skipDocuments).limit(items_per_page);
+    const totalUsers = await User.countDocuments();
 
-   res.status(200).send({
-    message: "Working",
-    status: "Success",
-    page: page,
-    items_per_page: items_per_page,
-    total: result.totalDocs, // Use result.totalDocs to get the total count of documents
-    users: result.docs, // Use result.docs to get the paginated users
-    pages: result.totalPages, // Use result.totalPages to get the total number of pages
-  });
+    if (!totalUsers) {
+      return res.status(500).send({
+        message: 'Error in the database',
+        status: 'Error',
+      });
+    }
+
+    res.status(200).send({
+      message: 'Working',
+      status: 'Success',
+      page: page,
+      items_per_page: items_per_page,
+      total: totalUsers,
+      users: result,
+      pages: Math.ceil(totalUsers / items_per_page), // Calcular el número total de páginas
+    });
 
   } catch (error) {
     res.status(500).send({
-      message: "Error in the query",
-      status: "Error"
+      message: 'Error in the query',
+      status: 'Error',
     });
   }
-
-  
-}
+};
 
 module.exports = {
   test,
