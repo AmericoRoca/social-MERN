@@ -1,30 +1,17 @@
 const { Schema, model } =  require("mongoose");
 
 const FollowSchema = Schema({
-    name: {
-        type: String,
-        required: true
+    user: {
+        type: Schema.ObjectId,
+        ref: "User"
     },
-    surname: String,
-    username: {
-        type: String,
-        required: true
+    followed: {
+        type: Schema.ObjectId,
+        ref: "User"    
     },
-    email:{
-        type: String,
-        required: true
-    },
-    role:{
-        type: String,
-        default: "role_user"
-    },
-    image: { 
-        type: String,
-        default: "default.png"
-    },
-    created_at: {
+    create_at: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     }
 
 })

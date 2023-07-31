@@ -2,7 +2,9 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("../services/jwt");
-const mongoosePagination = require("mongoose-pagination")
+const mongoosePagination = require("mongoose-pagination");
+const fs = require("fs");
+const path = require("path");
 
 //test actions
 const test = (req, res) => {
@@ -172,47 +174,201 @@ const profile = async (req,res) =>{
  
 }
 
-const list = async(req,res) => {
-
+const list = async (req, res) => {
   try {
-
-    //Control where the page we are
+    // Obtener el número de página de la consulta
     let page = 1;
-
-    const params = req.params.page;
-
-    if(params){
-        page = parseInt(params)
+    if (req.params.page) {
+      page = parseInt(req.params.page);
     }
 
+    console.log('Page:', page);
 
-   // Query with mongoose using pagination
-   let items_per_page = 5;
+    // Número de resultados por página
+    let items_per_page = 3;
+    if (req.query.items_per_page) {
+      items_per_page = parseInt(req.query.items_per_page);
+    }
 
-   const result = await User.find().sort('_id').paginate({ page, items_per_page });
+    // Calcular el número de documentos a omitir en la consulta
+    const skipDocuments = (page - 1) * items_per_page;
 
-   console.log("total: "+result.totalDocs);
-   console.log("users: "+result.docs);
-   console.log("pages: "+result.totalPages);
+    // Consulta con paginación utilizando skip() y limit()
+    const result = await User.find().sort('_id').skip(skipDocuments).limit(items_per_page);
+    const totalUsers = await User.countDocuments();
 
-   res.status(200).send({
-    message: "Working",
-    status: "Success",
-    page: page,
-    items_per_page: items_per_page,
-    total: result.totalDocs, // Use result.totalDocs to get the total count of documents
-    users: result.docs, // Use result.docs to get the paginated users
-    pages: result.totalPages, // Use result.totalPages to get the total number of pages
-  });
+    if (!totalUsers) {
+      return res.status(500).send({
+        message: 'Error in the database',
+        status: 'Error',
+      });
+    }
+
+    res.status(200).send({
+      message: 'Working',
+      status: 'Success',
+      page: page,
+      items_per_page: items_per_page,
+      total: totalUsers,
+      users: result,
+      pages: Math.ceil(totalUsers / items_per_page), // Calcular el número total de páginas
+    });
 
   } catch (error) {
     res.status(500).send({
+      message: 'Error in the query',
+      status: 'Error',
+    });
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    //Get the info to the updated user
+    const userIdentity = req.user;
+    const userToUpdate = req.body;
+
+    //Remover leftover fields
+    delete userToUpdate.iat;
+    delete userToUpdate.exp;
+    delete userToUpdate.role;
+    delete userToUpdate.image;
+
+    //Check if the user already exists
+    const users = await User.find({
+      $or: [
+        { email: userToUpdate.email.toLowerCase() },
+        { username: userToUpdate.username.toLowerCase() },
+      ],
+    }).exec();
+
+    let userIsset = false;
+
+    users.forEach((user) => {
+      if (user && user._id.toString() !== userIdentity.id) {
+        userIsset = true;
+      }
+    });
+
+    if (userIsset) {
+      return res.status(200).send({
+        status: "Success",
+        message: "User already exists",
+      });
+    }
+
+    //Crypt password
+    if (userToUpdate.password) {
+      const hashedPassword = await bcrypt.hash(userToUpdate.password, 10);
+      userToUpdate.password = hashedPassword;
+    }
+
+    // Find and update the user in the database
+    await User.findByIdAndUpdate(userIdentity.id, userToUpdate);
+
+    res.status(200).send({
+      message: "Working",
+      status: "Success",
+      userToUpdate,
+    });
+  } catch (error) {
+    res.status(500).send({
       message: "Error in the query",
-      status: "Error"
+      status: "Error",
+    });
+  }
+};
+
+const uploadAvatar = async (req, res) => {
+  try {
+    // Get file image and check if it exists
+    if (!req.file) {
+      return res.status(400).send({
+        message: "Request doesn't include the image",
+        status: "Error",
+      });
+      
+    }
+
+    // Get file name
+    const image = req.file.originalname;
+
+    // Extract ext of the file
+    const imageSplit = image.split(".");
+    const ext = imageSplit[imageSplit.length - 1].toLowerCase(); // Convert the extension to lowercase
+
+    // Check ext
+    if (ext !== "png" && ext !== "jpeg" && ext !== "jpg" && ext !== "gif") {
+      const filePath = req.file.path;
+      await fs.unlinkSync(filePath); // Delete the file
+      res.status(400).send({
+        message: "File extension invalid",
+        status: "Error",
+      });
+      
+    }
+
+    // Delete or save the file as per your requirement
+    const userUpdated = await User.findByIdAndUpdate(req.user.id, {image: req.file.filename}, {new:true})
+
+    if(!userUpdated){
+      res.status(500).send({
+        message: "Error in the avatar upload",
+        status: "Error",
+      });
+    }
+
+    return res.status(200).send({
+      message: "Working subida de imagenes",
+      status: "Success",
+      file: req.file,
+      user: userUpdated
+    });
+
+  } catch (error) {
+    return  res.status(500).send({
+      message: "Error in the query",
+      status: "Error",
+    });
+  }
+};
+
+const getAvatar = (req,res) =>{
+
+  try {
+    //Get the param from url
+    const file = req.params.file;
+
+    //Build a path for the image
+    const filePath = "./uploads/avatars/"+file;
+
+
+    //Check if the file exists
+    fs.stat(filePath, (err, exists) =>{
+
+      if(err){
+
+        res.status(404).send({
+          message: "Image doesn't exists",
+          status: "Error"
+        });
+      }
+
+      
+      //Return file
+      return res.sendFile(path.resolve(filePath));
+
+
+    })
+
+
+  } catch (error) {
+    return res.status(500).send({
+      message: "Error in the query",
+      status: "Error",
     });
   }
 
-  
 }
 
 module.exports = {
@@ -220,5 +376,8 @@ module.exports = {
   register,
   login,
   profile,
-  list
+  list,
+  updateUser,
+  uploadAvatar,
+  getAvatar
 };
