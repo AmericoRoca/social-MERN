@@ -1,8 +1,45 @@
-//test actions
-const testFollow = (req,res) =>{
-    return res.status(200).send({message: "Message send from controller: follow"})
-}
+//Import dependencies
+const Follow = require("../models/Follow")
+const User = require("../models/User")
+
+
+
+
+const save = async (req, res) => {
+    try {
+      const params = req.body;
+      const identity = req.user;
+  
+      let userFollowed = new Follow({
+        user: identity.id,
+        followed: params.followed,
+      });
+  
+      let followStored = await userFollowed.save();
+  
+      if (!followStored) {
+        return res.status(500).send({
+          message: "Error",
+          status: "Impossible to follow",
+        });
+      }
+  
+      return res.status(200).send({
+        message: "Success",
+        status: "Success",
+        identity: req.user,
+        follow: followStored,
+      });
+    } catch (error) {
+        console.error("Error during follow:", error); // Log the error for debugging purposes
+        return res.status(500).send({
+          message: "An unexpected error occurred during the follow process.",
+          status: "Error",
+        });
+    }
+  };
+  
 
 module.exports = {
-    testFollow
+    save
 }
