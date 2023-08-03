@@ -6,6 +6,7 @@ const check = require("../middlewares/auth")
 
 //Define routes
 router.post("/save", check.auth, followController.save);
+router.delete("/unfollow/:id", check.auth, followController.unfollow);
 
 
 
