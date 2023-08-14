@@ -9,5 +9,6 @@ router.get("/test-publication", publicationController.testPublication);
 router.post("/save", check.auth, publicationController.save);
 router.get("/detail/:id", check.auth, publicationController.detail);
 router.delete("/delete/:id", check.auth, publicationController.deletePublication);
+router.get("/user/:id/:page?", check.auth, publicationController.user);
 
 module.exports = router;

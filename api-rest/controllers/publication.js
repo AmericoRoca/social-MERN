@@ -136,7 +136,79 @@ const deletePublication = async(req,res) =>{
 //devolver archivos multimedia
 
 
-//listar publicacion
+//listar publicacion (feed)
+const user = async(req,res) =>{
+    try {
+        //sacar id de usuario
+        const userId = req.params.id;
+
+
+        //controlar la pagina
+        let page = 1;
+
+        if (req.params.page) {
+            page = parseInt(req.params.page);
+          }
+      
+          console.log('Page:', page);
+      
+          // Número de resultados por página
+          let items_per_page = 5;
+
+          if (req.query.items_per_page) {
+            items_per_page = parseInt(req.query.items_per_page);
+          }
+      
+          // Calcular el número de documentos a omitir en la consulta
+          const skipDocuments = (page - 1) * items_per_page;
+      
+          // Consulta con paginación utilizando skip() y limit()
+          const totalPublications = await Publication.countDocuments();
+
+            
+            if (!totalPublications) {
+                return res.status(500).send({
+                message: 'Error in the database',
+                status: 'Error',
+                });
+            }
+
+
+        //ordenar articulos y paginar
+        const publications = await Publication.find({"user": userId})
+            .sort("_id")
+            .populate('user', '-password -__v -role')
+            .skip(skipDocuments)
+            .limit(items_per_page)
+            .exec();
+
+        if(!publications){
+            return res.status(404).send({
+                status: "Error",
+                message: "Publications doesnt exits",
+            })
+        }
+
+        //devolver respuesta
+        return res.status(200).send({
+            status: "Success",
+            message: "Publication of the user",
+            items: items_per_page,
+            pages: Math.ceil(totalPublications / items_per_page), // Calcular el número total de páginas
+            totalPublications,
+            page: page,
+            publications: publications,
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({
+            status: "Error",
+            message: "Publications doesnt exits",
+        })
+    }
+}
+
 
 
 
@@ -150,5 +222,6 @@ module.exports = {
     testPublication,
     save,
     detail,
-    deletePublication
+    deletePublication,
+    user
 }
