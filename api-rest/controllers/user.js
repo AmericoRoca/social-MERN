@@ -5,6 +5,7 @@ const jwt = require("../services/jwt");
 const mongoosePagination = require("mongoose-pagination");
 const fs = require("fs");
 const path = require("path");
+const followService = require("../services/followUserIds")
 
 //test actions
 const test = (req, res) => {
@@ -158,11 +159,16 @@ const profile = async (req,res) =>{
       });
     }
 
+    //info de seguimiento
+    const follow_info = await followService.followThisUser(req.user.id, id);
+
     //Return result
     res.status(200).send({
       message: "User exits!!",
       status: "Success",
-      user
+      user,
+      following: follow_info.following,
+      follower: follow_info.followers
     });
 
   } catch (error) {
@@ -204,6 +210,9 @@ const list = async (req, res) => {
       });
     }
 
+    //info de seguimiento
+    const followUserIds = await followService.followUserIds(req.user.id);
+
     res.status(200).send({
       message: 'Working',
       status: 'Success',
@@ -212,9 +221,13 @@ const list = async (req, res) => {
       total: totalUsers,
       users: result,
       pages: Math.ceil(totalUsers / items_per_page), // Calcular el número total de páginas
+      following: followUserIds.following,
+      follower: followUserIds.followers
     });
 
   } catch (error) {
+    console.log(error)
+
     res.status(500).send({
       message: 'Error in the query',
       status: 'Error',
