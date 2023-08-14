@@ -1,4 +1,6 @@
 const Publication = require("../models/Publication")
+const fs = require("fs")
+const path = require("path");
 
 
 //test actions
@@ -127,13 +129,105 @@ const deletePublication = async(req,res) =>{
 }
 
 
-
 //subir ficheros
+const upload = async (req, res) => {
+    try {
+        
+      //Sacar publication id
+      const publicationId = req.params.id;
 
-
+      // Get file image and check if it exists
+      if (!req.file) {
+        return res.status(400).send({
+          message: "Request doesn't include the image",
+          status: "Error",
+        });
+        
+      }
+  
+      // Get file name
+      const image = req.file.originalname;
+  
+      // Extract ext of the file
+      const imageSplit = image.split(".");
+      const ext = imageSplit[imageSplit.length - 1].toLowerCase(); // Convert the extension to lowercase
+  
+      // Check ext
+      if (ext !== "png" && ext !== "jpeg" && ext !== "jpg" && ext !== "gif") {
+        const filePath = req.file.path;
+        await fs.unlinkSync(filePath); // Delete the file
+        res.status(400).send({
+          message: "File extension invalid",
+          status: "Error",
+        });
+        
+      }
+  
+      // Delete or save the file as per your requirement
+      const publicationUpdated = await Publication.findByIdAndUpdate({"user": req.user.id, "_id": publicationId}, {file: req.file.filename}, {new:true})
+  
+      if(!publicationUpdated){
+        res.status(500).send({
+          message: "Error in the avatar upload",
+          status: "Error",
+        });
+      }
+  
+      return res.status(200).send({
+        message: "Working subida de imagenes",
+        status: "Success",
+        file: req.file,
+        publication: publicationUpdated
+      });
+  
+    } catch (error) {
+        console.log(error)
+      return  res.status(500).send({
+        message: "Error in the query",
+        status: "Error",
+      });
+    }
+};
 
 
 //devolver archivos multimedia
+const media = (req,res) =>{
+
+    try {
+      //Get the param from url
+      const file = req.params.file;
+  
+      //Build a path for the image
+      const filePath = "./uploads/publications/"+file;
+  
+  
+      //Check if the file exists
+      fs.stat(filePath, (err, exists) =>{
+  
+        if(err){
+          console.log(err)
+          res.status(404).send({
+            message: "Image doesn't exists",
+            status: "Error"
+          });
+        }
+  
+        
+        //Return file
+        return res.sendFile(path.resolve(filePath));
+  
+  
+      })
+  
+  
+    } catch (error) {
+      return res.status(500).send({
+        message: "Error in the query",
+        status: "Error",
+      });
+    }
+  
+}
 
 
 //listar publicacion (feed)
@@ -221,5 +315,7 @@ module.exports = {
     save,
     detail,
     deletePublication,
-    user
+    user,
+    upload,
+    media
 }
