@@ -210,8 +210,6 @@ const user = async(req,res) =>{
 }
 
 
-
-
 //listar publicaciones de un usuario
 
 
