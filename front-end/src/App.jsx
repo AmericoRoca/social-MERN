@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { Routing } from './router/Routing'
 
 function App(){
   return (
     <div className='layout'>
-      <h1>Proyecto React</h1>
+      
+      <Routing/>
 
     </div>
   )
