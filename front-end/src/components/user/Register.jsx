@@ -1,17 +1,37 @@
-import React from 'react'
-import { useForm } from '../../hooks/useForm'
+import React, { useState } from "react";
+import { useForm } from "../../hooks/useForm";
+import { Global } from "../../helpers/Global";
 
 export const Register = () => {
 
-  const { form, changed} = useForm({});
+  const { form, changed } = useForm({});
+  const [ saved, setSaved ] = useState("not_sended");
 
-  const saveUser = (e) =>{
+  const saveUser = async (e) => {
+    //prevenir actualizacion de pantalla
     e.preventDefault();
-    
+
+    //recoger datos formulario
     let newUser = form;
 
-    console.log(newUser)
-  }
+    //guardar usuario en el back
+    const request = await fetch(Global.url+"user/register", {
+      method: "POST",
+      body: JSON.stringify(newUser),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await request.json();
+
+    if(data.status == "Success"){
+      setSaved("saved");
+    } else {
+      setSaved("Error")
+    }
+
+  };
 
   return (
     <>
@@ -20,31 +40,34 @@ export const Register = () => {
       </header>
 
       <div className="content__posts">
-        <form action="" className='register-form' onSubmit={saveUser}>
-          <div className='form-group'>
-            <label htmlFor='name'>Nombre</label>
-            <input type='text' name="name" onChange={changed}/>
+
+        {saved == "saved" ? <strong className="alert alert-success"> "Usuario registrado correctamente !!"</strong> : ''}
+        {saved == "error" ? <strong className="alert alert-danger"> "Usuario no registrado !!"</strong> : ''}
+        <form action="" className="register-form" onSubmit={saveUser}>
+          <div className="form-group">
+            <label htmlFor="name">Nombre</label>
+            <input type="text" name="name" onChange={changed} />
           </div>
-          <div className='form-group'>
-            <label htmlFor='apellido'>Apellido</label>
-            <input type='text' name="apellido" onChange={changed}/>
+          <div className="form-group">
+            <label htmlFor="surname">Apellido</label>
+            <input type="text" name="surname" onChange={changed} />
           </div>
-          <div className='form-group'>
-            <label htmlFor='nick'>Nick</label>
-            <input type='text' name="nick" onChange={changed}/>
+          <div className="form-group">
+            <label htmlFor="username">Nick</label>
+            <input type="text" name="username" onChange={changed} />
           </div>
-          <div className='form-group'>
-            <label htmlFor='email'>Email</label>
-            <input type='email' name="email" onChange={changed}/>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input type="email" name="email" onChange={changed} />
           </div>
-          <div className='form-group'>
-            <label htmlFor='password'>Contraseña</label>
-            <input type='password' name="password" onChange={changed}/>
+          <div className="form-group">
+            <label htmlFor="password">Contraseña</label>
+            <input type="password" name="password" onChange={changed} />
           </div>
 
-            <input type='submit' value="Registrate" className='btn btn-success'/>
+          <input type="submit" value="Registrate" className="btn btn-success" />
         </form>
       </div>
     </>
-  )
-}
+  );
+};

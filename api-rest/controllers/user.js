@@ -21,7 +21,7 @@ const register = async (req, res) => {
 
   //comprobar que llegan
 
-  if (!params.name || !params.email || !params.password || !params.username) {
+  if (!params.name || !params.email || !params.password || !params.username || !params.surname) {
     return res.status(400).send({
       message: "Missing data",
       status: "Error",
@@ -41,7 +41,8 @@ const register = async (req, res) => {
         { email: user_to_save.email.toLowerCase() },
         { username: user_to_save.username.toLowerCase() },
       ],
-    }).exec();
+    })
+    .exec();
 
     if (users && users.length >= 1) {
       return res.status(200).send({
@@ -60,6 +61,7 @@ const register = async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(user_to_save.password, 10);
     user_to_save.password = hashedPassword;
+
   } catch (error) {
     return res.status(500).json({
       status: "Error",
