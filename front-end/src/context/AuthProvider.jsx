@@ -36,6 +36,18 @@ export const AuthProvider = ({ children }) => {
 
     const data = await request.json();
 
+
+    //peticion contadores
+    const requestCounters = await fetch(Global.url + "user/profile/" + userId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
+
+    const dataCounters = await request.json();
+
     setAuth(data.user);
   };
 
