@@ -5,9 +5,10 @@ import { Global } from '../../../helpers/Global'
 
 export const Sidebar = () => {
 
-    const {auth} = useAuth();
+    const {auth, counters} = useAuth();
 
     console.log(auth)
+    console.log(counters)
 
 
   return (
@@ -38,13 +39,13 @@ export const Sidebar = () => {
                 <div className="stats__following">
                     <a href="#" className="following__link">
                         <span className="following__title">Siguiendo</span>
-                        <span className="following__number">10</span>
+                        <span className="following__number">{counters.following}</span>
                     </a>
                 </div>
                 <div className="stats__following">
                     <a href="#" className="following__link">
                         <span className="following__title">Seguidores</span>
-                        <span className="following__number">13</span>
+                        <span className="following__number">{counters.followed}</span>
                     </a>
                 </div>
 
@@ -52,7 +53,7 @@ export const Sidebar = () => {
                 <div className="stats__following">
                     <a href="#" className="following__link">
                         <span className="following__title">Publicaciones</span>
-                        <span className="following__number">17</span>
+                        {counters.publications == "null" && <span className="following__number">0</span>}
                     </a>
                 </div>
 
