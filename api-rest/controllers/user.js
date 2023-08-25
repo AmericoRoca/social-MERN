@@ -6,6 +6,8 @@ const mongoosePagination = require("mongoose-pagination");
 const fs = require("fs");
 const path = require("path");
 const followService = require("../services/followUserIds")
+const Publication = require("../models/Publication")
+const Follow = require("../models/Follow")
 
 //test actions
 const test = (req, res) => {
@@ -276,6 +278,10 @@ const updateUser = async (req, res) => {
     if (userToUpdate.password) {
       const hashedPassword = await bcrypt.hash(userToUpdate.password, 10);
       userToUpdate.password = hashedPassword;
+
+    } else {
+
+      delete userToUpdate.password;
     }
 
     // Find and update the user in the database
@@ -386,6 +392,40 @@ const getAvatar = (req,res) =>{
 
 }
 
+const counters = async(req,res) =>{
+
+  let userId = req.user.id;
+
+  if(req.params.id){
+    userId = req.params.id;
+  }
+
+  try {
+
+    const following = await Follow.count({"user": userId});
+
+    const followed = await Follow.count({"followed": userId});
+
+    const publications = await Publication.count({"user": userId});
+
+    return res.status(200).send({
+      userId,
+      following: following,
+      followed: followed,
+      publications: publications
+    })
+    
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send({
+      status: "error",
+      message: "Error en los contadores",
+      error
+    })
+  }
+
+}
+
 module.exports = {
   test,
   register,
@@ -394,5 +434,6 @@ module.exports = {
   list,
   updateUser,
   uploadAvatar,
-  getAvatar
+  getAvatar,
+  counters
 };

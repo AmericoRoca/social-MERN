@@ -5,7 +5,9 @@ import { Global } from "../helpers/Global";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
   const [auth, setAuth] = useState({});
+  const [counters, setCounters] = useState({});
 
   useEffect(() => {
     authUser();
@@ -36,11 +38,24 @@ export const AuthProvider = ({ children }) => {
 
     const data = await request.json();
 
+
+    //peticion contadores
+    const requestCounters = await fetch(Global.url + "user/profile/" + userId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
+
+    const dataCounters = await requestCounters.json();
+
     setAuth(data.user);
+    setCounters(dataCounters);
   };
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ auth, setAuth, counters }}>
       {children}
     </AuthContext.Provider>
   );
