@@ -290,7 +290,7 @@ const updateUser = async (req, res) => {
     res.status(200).send({
       message: "Working",
       status: "Success",
-      userToUpdate,
+      user: userToUpdate,
     });
   } catch (error) {
     res.status(500).send({
