@@ -12,7 +12,6 @@ export const Config = () => {
 
 
   const updateUser = async(e) =>{
-
     e.preventDefault();
 
     //token auth
@@ -76,6 +75,7 @@ export const Config = () => {
         setSaved("saved");
 
       } else {
+
         setSaved("error")
       }
     }
