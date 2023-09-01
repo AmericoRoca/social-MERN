@@ -26,6 +26,9 @@ export const Register = () => {
     const data = await request.json();
 
     if(data.status == "Success"){
+      delete data.user.password;
+
+      setAuth(data.user);
       setSaved("saved");
     } else {
       setSaved("Error")
