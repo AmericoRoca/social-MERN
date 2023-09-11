@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
 
 
     //peticion contadores
-    const requestCounters = await fetch(Global.url + "user/profile/" + userId, {
+    const requestCounters = await fetch(Global.url + "user/counters/" + userId, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

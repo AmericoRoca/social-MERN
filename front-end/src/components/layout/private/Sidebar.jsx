@@ -53,7 +53,7 @@ export const Sidebar = () => {
                 <div className="stats__following">
                     <a href="#" className="following__link">
                         <span className="following__title">Publicaciones</span>
-                        {counters.publications == "null" && <span className="following__number">0</span>}
+                        <span className="following__number">{counters.publications}</span>
                     </a>
                 </div>
 
