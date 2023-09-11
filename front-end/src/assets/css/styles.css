@@ -152,7 +152,7 @@ body {
     margin-top: 1rem;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
-    display: flex;
+    display: block;
     flex-direction: row;
     align-items: center;
    
@@ -196,6 +196,7 @@ body {
     border-radius: 0.4rem;
     border: 1px solid var(--color-border-post);
     padding: 1.5rem;
+    margin-right: 15px;
 }
 
 
