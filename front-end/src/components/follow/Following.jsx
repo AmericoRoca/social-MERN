@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Global } from "../../helpers/Global";
 import { UserList } from "../user/UserList";
 import { useParams } from "react-router-dom";
+import { GetProfile } from "../../helpers/getProfile";
+
+
 
 export const Following = () => {
   
@@ -10,11 +13,15 @@ export const Following = () => {
   const [loading, setLoading] = useState(true);
   const [more, setMore] = useState(true);
   const [following, setFollowing] = useState([]);
+  const [userProfile, setUserProfile] = useState({});
 
   const params = useParams();
 
+
+
   useEffect(() => {
     getUsers(1);
+    GetProfile(params.userId, setUserProfile);
   }, []);
 
   const getUsers = async (nextPage = 1) => {
@@ -55,12 +62,13 @@ export const Following = () => {
         setMore(false);
       }
     }
-  };
+  }
+
 
   return (
     <>
       <header className="content__header">
-        <h1 className="content__title">Usuarios que sigues</h1>
+        <h1 className="content__title">Usuarios que sigue: {userProfile.username}</h1>
       </header>
 
       <UserList

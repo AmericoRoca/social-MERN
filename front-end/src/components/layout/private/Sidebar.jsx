@@ -101,9 +101,9 @@ export const Sidebar = () => {
             </div>
 
             <div className="general-info__container-names">
-              <a href="#" className="container-names__name">
+              <Link to={"/social/perfil/"+auth._id} className="container-names__name">
                 {auth.name} {auth.surname}
-              </a>
+              </Link>
               <p className="container-names__nickname">{auth.username}</p>
             </div>
           </div>
@@ -116,19 +116,19 @@ export const Sidebar = () => {
               </Link>
             </div>
             <div className="stats__following">
-              <Link to={"seguidores/" + auth._id} className="following__link">
+              <Link to={"seguidores/"+auth._id} className="following__link">
                 <span className="following__title">Seguidores</span>
                 <span className="following__number">{counters.followed}</span>
               </Link>
             </div>
 
             <div className="stats__following">
-              <a href="#" className="following__link">
+              <Link to={"/social/perfil/"+auth._id} className="following__link">
                 <span className="following__title">Publicaciones</span>
                 <span className="following__number">
                   {counters.publications}
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
