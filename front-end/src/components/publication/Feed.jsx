@@ -1,6 +1,9 @@
 import React from "react";
 import avatar from '../../assets/img/user.png'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {  faTrashCan } from '@fortawesome/free-solid-svg-icons'
+
 
 export const Feed = () => {
 
@@ -43,7 +46,7 @@ export const Feed = () => {
 
           <div className="post__buttons">
             <a href="#" className="post__button">
-              <i className="fa-solid fa-trash-can"></i>
+            <FontAwesomeIcon icon={faTrashCan} />
             </a>
           </div>
         </div>
