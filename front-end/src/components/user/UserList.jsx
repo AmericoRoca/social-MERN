@@ -113,7 +113,7 @@ export const UserList = ({
                   </div>
                 </div>
 
-                {user._id !== auth._id && (
+                {user._id != auth._id && (
                   <div className="post__buttons">
                     {Array.isArray(following) &&
                     following.includes(user._id) ? (
