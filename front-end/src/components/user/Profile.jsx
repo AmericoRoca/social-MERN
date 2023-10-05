@@ -18,7 +18,6 @@ export const Profile = () => {
       GetProfile(params.userId,setUser);
     })
 
-
   return (
     <>
     <br />
@@ -27,7 +26,7 @@ export const Profile = () => {
             <div className="general-info__container-avatar">
               {user.image != "default.png" && (
                 <img
-                  src={Global.url + "user/getAvatar/" + user.image}
+                  src={Global.url + "user/getAvatar/"+user.image}
                   className="container-avatar__img"
                   alt="Foto de perfil"
                 />
@@ -48,19 +47,20 @@ export const Profile = () => {
               <p className="container-names__nickname">{user.username}</p>
               <p>{user.bio}</p>
               <br />
-              <button className="content__button">Seguir</button>
+              {user._id != auth._id && <button className="content__button">Seguir</button>}
+              
             </div>
           </div>
 
           <div className="profile-info__stats">
             <div className="stats__following">
-              <div className="following__link">
+              <Link to={"/social/siguiendo/"+auth._id} className="following__link">
                 <span className="following__title">Siguiendo</span>
                 <span className="following__number">{counters.following}</span>
-              </div>
+              </Link>
             </div>
             <div className="stats__following">
-              <Link to={"seguidores/"+auth._id} className="following__link">
+              <Link to={"/social/seguidores/"+auth._id} className="following__link">
                 <span className="following__title">Seguidores</span>
                 <span className="following__number">{counters.followed}</span>
               </Link>

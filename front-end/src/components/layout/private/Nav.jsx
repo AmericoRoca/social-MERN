@@ -4,9 +4,17 @@ import { NavLink } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 import { Global } from '../../../helpers/Global'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRightFromBracket, faHouse } from '@fortawesome/free-solid-svg-icons'
+import { faList } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faGear } from '@fortawesome/free-solid-svg-icons'
+
 export const Nav = () => {
 
     const {auth} = useAuth();
+
+    
 
   return (
 
@@ -15,21 +23,21 @@ export const Nav = () => {
         <ul className="container-lists__menu-list">
             <li className="menu-list__item">
                 <NavLink to="/social" className="menu-list__link">
-                    <i className="fa-solid fa-house"></i>
+                    <FontAwesomeIcon icon={faHouse} />
                     <span className="menu-list__title">Inicio</span>
                 </NavLink>
             </li>
 
             <li className="menu-list__item">
                 <NavLink to="/social/feed" className="menu-list__link">
-                    <i className="fa-solid fa-list"></i>
+                    <FontAwesomeIcon icon={faList} />
                     <span className="menu-list__title">Timeline</span>
                 </NavLink>
             </li>
 
             <li className="menu-list__item">
                 <NavLink to="/social/people" className="menu-list__link">
-                    <i className="fa-solid fa-user"></i>
+                    <FontAwesomeIcon icon={faUser} />
                     <span className="menu-list__title">Gente</span>
                 </NavLink>
             </li>
@@ -51,14 +59,14 @@ export const Nav = () => {
             </li>
             <li className="list-end__item">
                 <NavLink to="/social/config" className="list-end__link">
-                    <i className='fa-solid fa-gear'></i>
+                    <FontAwesomeIcon icon={faGear} />
                     <span className="list-end__name">Ajustes</span>
                 </NavLink>
             </li>
             <li className="list-end__item">
                 <NavLink to="/social/logout" className="list-end__link">
                     <span className="list-end__name">Cerrar sesion</span>
-                    <i className='fa-solid fa-arrow-right-from-bracket'></i>
+                    <FontAwesomeIcon icon={faArrowRightFromBracket} />
                 </NavLink>
             </li>
         </ul>
