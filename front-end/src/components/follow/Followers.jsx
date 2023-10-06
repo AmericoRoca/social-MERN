@@ -27,7 +27,7 @@ export const Followers = () => {
     const userId = params.userId;
 
     // Make a request
-    const request = await fetch(Global.url + "follow/followers/" + userId + "/" + nextPage, {
+    const request = await fetch(Global.url+"follow/followers/"+userId+"/"+nextPage, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

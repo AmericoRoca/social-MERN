@@ -25,10 +25,12 @@ export const Following = () => {
   }, []);
 
   const getUsers = async (nextPage = 1) => {
+
+    
     const userId = params.userId;
 
     // Make a request
-    const request = await fetch(Global.url + "follow/following/" + userId + "/" + nextPage, {
+    const request = await fetch(Global.url+"follow/following/"+userId+"/"+nextPage, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

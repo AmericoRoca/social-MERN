@@ -115,22 +115,22 @@ export const UserList = ({
 
                 {user._id != auth._id && (
                   <div className="post__buttons">
-                    {Array.isArray(following) &&
-                    following.includes(user._id) ? (
+                    {!following.includes(user._id) && 
                       <button
                         className="post__button post__button"
-                        onClick={() => unFollow(user._id)}
-                      >
-                        Dejar de seguir
-                      </button>
-                    ) : (
-                      <button
-                        className="post__button post__button--green"
                         onClick={() => follow(user._id)}
                       >
                         Seguir
                       </button>
-                    )}
+                      } 
+                      {following.includes(user._id) &&
+                        <button
+                        className="post__button post__button--green"
+                        onClick={() => unFollow(user._id)}
+                      >
+                       Dejar de seguir
+                      </button>
+                      }
                   </div>
                 )}
               </article>
