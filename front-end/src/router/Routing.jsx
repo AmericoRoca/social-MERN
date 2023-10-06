@@ -31,9 +31,9 @@ export const Routing = () => {
             <Route path="logout" element={<Logout />} />
             <Route path="people" element={<People />} />
             <Route path="config" element={<Config />} />
-            <Route path="siguiendo/:userId" element={<Following/>} />
-            <Route path="seguidores/:userId" element={<Followers/>} />
-            <Route path="perfil/:userId" element={<Profile/>} />
+            <Route path="following/:userId" element={<Following/>} />
+            <Route path="followers/:userId" element={<Followers/>} />
+            <Route path="profile/:userId" element={<Profile/>} />
           </Route>
 
           <Route
