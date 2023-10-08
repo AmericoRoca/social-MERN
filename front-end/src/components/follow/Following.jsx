@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Global } from "../../helpers/Global";
 import { useParams } from "react-router-dom";
-import { People } from "../user/People";
+import { UserList } from "../user/UserList";
 
 export const Following = () => {
 
@@ -37,28 +37,29 @@ export const Following = () => {
 
     let cleanUsers = [];
 
-    //Recorrer y limpiar follows para quedarme con followed
+    //Recorrer y limpiar follows
     data.follows.forEach(follow => {
       cleanUsers = [...cleanUsers, follow.followed]
-    });
+    })
     
     data.users = cleanUsers;
 
 
     //Crear estado para poder listarlos
-    if (data.users && data.status == "Success") {
-      let newUsers = data.users;
+    if (data.follows && data.status == "Success") {
+      let newUsers = data.follows;
 
       if (users.length >= 1) {
-        newUsers = [...users, ...data.users];
+        newUsers = [...users, ...data.follows];
       }
 
       setUsers(newUsers);
       setFollowing(data.following);
       setLoading(false);
 
+
       //Paginacion
-      if (users.length >= data.total - data.users.length) {
+      if (users.length >= data.total - data.follows.length) {
         setMore(false);
       }
     }
@@ -71,9 +72,15 @@ export const Following = () => {
         <h1 className="content__title">Usuarios que sigue: </h1>
       </header>
 
-      <People/>
+      <UserList users={users} 
+                getUsers={getUsers}
+                following={following}
+                setFollowing={setFollowing}
+                loading={loading}
+                more={more}
+                page={page}
+                setPage={setPage}/>
 
-      
     </>
   );
 };
