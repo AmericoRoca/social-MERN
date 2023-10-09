@@ -101,7 +101,7 @@ export const Sidebar = () => {
             </div>
 
             <div className="general-info__container-names">
-              <Link to={"/social/perfil/"+auth._id} className="container-names__name">
+              <Link to={"/social/profile/"+auth._id} className="container-names__name">
                 {auth.name} {auth.surname}
               </Link>
               <p className="container-names__nickname">{auth.username}</p>

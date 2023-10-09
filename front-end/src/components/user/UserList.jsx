@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import avatar from "../../assets/img/user.png";
 import { Global } from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 
 export const UserList = ({users, getUsers, following, setFollowing, loading, more, page, setPage}) => {
@@ -64,7 +65,7 @@ export const UserList = ({users, getUsers, following, setFollowing, loading, mor
             <article className="posts__post" key={user._id}>
               <div className="post__container">
                 <div className="post__image-user">
-                  <a href="#" className="post__image-link">
+                  <Link to={"/social/profile/"+user._id} className="post__image-link">
                     {user.image != "default.png" && (
                       <img
                         src={Global.url + "user/getAvatar/" + user.image}
@@ -79,17 +80,17 @@ export const UserList = ({users, getUsers, following, setFollowing, loading, mor
                         alt="Foto de perfil"
                       />
                     )}
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="post__body">
                   <div className="post__user-info">
-                    <a href="#" className="user-info__name">
+                    <Link to={"/social/profile/"+user._id} className="user-info__name">
                       {user.name}
                       {user.surname}
-                    </a>
+                    </Link>
                     <span className="user-info__divider"> | </span>
-                    <a href="#" className="user-info__create-date">
+                    <a className="user-info__create-date">
                       {user.created_at}
                     </a>
                   </div>
