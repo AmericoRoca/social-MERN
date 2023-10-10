@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 export const Profile = () => {
+  
   const { auth } = useAuth();
   const [user, setUser] = useState({});
   const [counters, setCounters] = useState({});
@@ -126,6 +127,10 @@ export const Profile = () => {
         setMore(false);
       }
 
+      if(data.pages <= 1){
+        setMore(false);
+      }
+
     }
   };
 
@@ -135,14 +140,22 @@ export const Profile = () => {
     getPublications(next);
   };
 
-  const deletePublication = async() =>{
-    const request = await fetch(Global.url+"publication/remove/"+publicationId, {
+  const deletePublication = async(publicationId) =>{
+    const request = await fetch(Global.url+"publication/delete/"+publicationId, {
       method: "DELETE",
       headers:{
         "Content-Type": "application/json",
         "Authorization": localStorage.getItem("token")
       }
     })
+
+    const data = await request.json();
+
+    setPage(1)
+    setMore(true);
+    getPublications(1, true);
+
+    
   }
 
   return (
@@ -198,7 +211,7 @@ export const Profile = () => {
         <div className="profile-info__stats">
           <div className="stats__following">
             <Link
-              to={"/social/siguiendo/" + user._id}
+              to={"/social/following/" + user._id}
               className="following__link"
             >
               <span className="following__title">Siguiendo</span>
@@ -209,7 +222,7 @@ export const Profile = () => {
           </div>
           <div className="stats__following">
             <Link
-              to={"/social/seguidores/" + user._id}
+              to={"/social/followers/" + user._id}
               className="following__link"
             >
               <span className="following__title">Seguidores</span>
@@ -220,7 +233,7 @@ export const Profile = () => {
           </div>
 
           <div className="stats__following">
-            <Link to={"/social/perfil/" + user._id} className="following__link">
+            <Link to={"/social/profile/" + user._id} className="following__link">
               <span className="following__title">Publicaciones</span>
               <span className="following__number">
                 {counters.publications >= 1 ? counters.publications : 0}
@@ -273,13 +286,16 @@ export const Profile = () => {
                   </div>
 
                   <h4 className="post__content">{publication.text}</h4>
+
+                  {publication.file && 
+                  <img src={Global.url+"publication/media/"+publication.file}/>}
                 </div>
               </div>
               {auth._id == publication.user._id && (
                 <div className="post__buttons">
-                  <a href="#" className="post__button">
+                  <button className="post__button" onClick={()=> deletePublication(publication._id)}>
                     <FontAwesomeIcon icon={faTrashCan} />
-                  </a>
+                  </button>
                 </div>
               )}
             </article>
