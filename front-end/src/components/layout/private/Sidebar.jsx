@@ -62,13 +62,13 @@ export const Sidebar = () => {
             setStored("error")
         }
 
-        if(data.status === "Success" && uploadData.status == "Success"){
+        //if(data.status === "Success" && uploadData.status == "Success"){
             const myForm = document.querySelector("#publication-form");
             myForm.reset();
 
-        } else {
-            setStored("error")
-        }
+        //} else {
+           // setStored("error")
+        //}
 
     }
 
