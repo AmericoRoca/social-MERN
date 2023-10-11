@@ -1,15 +1,13 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import avatar from "../../assets/img/user.png";
 import { Global } from "../../helpers/Global";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { PublicationList } from "../publication/PublicationList";
+
 
 
 export const Feed = () => {
-
 
   const { auth } = useAuth();
   const [publications, setPublications] = useState([]);
@@ -18,11 +16,19 @@ export const Feed = () => {
 
   const params = useParams();
 
+
   useEffect(() => {
-    getPublications(1, true);
+    getPublications(1, false);
   }, []);
 
-  const getPublications = async (nextPage = 1) => {
+  const getPublications = async (nextPage = 1,showNews = false) => {
+
+    if (showNews){
+      setPublications([]);
+      setPage(1);
+      nextPage = 1;
+    }
+
     const request = await fetch(
       Global.url + "publication/feed/"+ nextPage,
       {
@@ -40,7 +46,7 @@ export const Feed = () => {
 
       let newPublications = data.publications;
 
-      if (!newProfile && publications.length >= 1) {
+      if (!showNews && publications.length >= 1) {
         newPublications = [...publications, ...data.publications];
       }
 
@@ -49,7 +55,7 @@ export const Feed = () => {
 
     
 
-      if (publications.length >= data.totalPublications - data.publications.length) {
+      if (!showNews && publications.length >= data.totalPublications - data.publications.length) {
         setMore(false);
       }
 
@@ -65,13 +71,18 @@ export const Feed = () => {
     <>
       <header className="content__header">
         <h1 className="content__title">Timeline</h1>
-        <button className="content__button">Mostrar nuevas</button>
+        <button className="content__button" onClick={()=>getPublications(1, true)}>Mostrar nuevas</button>
       </header>
 
-    
-      <div className="content__container-btn">
-        <button className="content__btn-more-post">Ver mas publicaciones</button>
-      </div>
+      <PublicationList 
+        publications={publications}
+        getPublications={getPublications}
+        page={page}
+        setPage={setPage}
+        more={more}
+        setMore={setMore}/>
+
+
     </>
   );
 };
