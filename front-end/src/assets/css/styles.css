@@ -20,7 +20,7 @@
     --color-border-post: #4F28CC;
     --color-name-user: #4F28CC;
 
-    --color-text-black: black;
+    --color-text-black: gray;
     --color-text-nickname: #969393;
     --color-number-stats: #4F28CC;
 
@@ -28,7 +28,7 @@
     --color-border-textarea-focus: #66afe9;
 
     --color-background: #020314;
-    --titles: white;
+    --titles: #4F28CC;
 
 }
 
@@ -84,6 +84,11 @@ body {
 
 .layout__navbar *{
     color: var(--color-text-navbar);
+}
+
+.image-header{
+    width: 150px;
+    margin-top: 20px;
 }
 
 .navbar__title{
@@ -145,6 +150,7 @@ body {
     grid-area: content;
     padding: 0 1.5rem;
     background-color: var(--color-background);
+
 }
 
 .content__login{
