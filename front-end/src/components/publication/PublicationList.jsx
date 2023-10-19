@@ -8,34 +8,40 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import ReactTimeAgo from "react-time-ago";
 
-export const PublicationList = ({publications, getPublications, page, setPage, more, setMore}) => {
+export const PublicationList = ({
+  publications,
+  getPublications,
+  page,
+  setPage,
+  more,
+  setMore,
+}) => {
+  const { auth } = useAuth();
 
-    const { auth } = useAuth();
+  const nextPage = () => {
+    let next = page + 1;
+    setPage(next);
+    getPublications(next);
+  };
 
-    const nextPage = () => {
-        let next = page + 1;
-        setPage(next);
-        getPublications(next);
-      };
-
-
-      const deletePublication = async(publicationId) =>{
-        const request = await fetch(Global.url+"publication/delete/"+publicationId, {
-          method: "DELETE",
-          headers:{
-            "Content-Type": "application/json",
-            "Authorization": localStorage.getItem("token")
-          }
-        })
-    
-        const data = await request.json();
-    
-        setPage(1)
-        setMore(true);
-        getPublications(1, true);
-    
-        
+  const deletePublication = async (publicationId) => {
+    const request = await fetch(
+      Global.url + "publication/delete/" + publicationId,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
       }
+    );
+
+    const data = await request.json();
+
+    setPage(1);
+    setMore(true);
+    getPublications(1, true);
+  };
 
   return (
     <>
@@ -77,7 +83,12 @@ export const PublicationList = ({publications, getPublications, page, setPage, m
                     </a>
                     <span className="user-info__divider"> | </span>
                     <a href="#" className="user-info__create-date">
-                      <ReactTimeAgo date={publication.create_at} locale="es-ES"/>
+                      {publication.create_at && (
+                        <ReactTimeAgo
+                          date={publication.create_at}
+                          locale="es-ES"
+                        />
+                      )}
                     </a>
                   </div>
 
