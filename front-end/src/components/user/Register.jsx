@@ -4,6 +4,7 @@ import { Global } from "../../helpers/Global";
 
 export const Register = () => {
 
+  const [auth, setAuth] = useState();
   const { form, changed } = useForm({});
   const [ saved, setSaved ] = useState("not_sended");
 
@@ -26,10 +27,19 @@ export const Register = () => {
     const data = await request.json();
 
     if(data.status == "Success"){
-      delete data.user.password;
+
+      //delete data.user.password;
 
       setAuth(data.user);
       setSaved("saved");
+      
+      //redireccion
+      setTimeout(()=>{
+        window.location.reload();
+      }, 1000)
+
+      window.location.href="/login";
+
     } else {
       setSaved("Error")
     }
