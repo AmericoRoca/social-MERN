@@ -1,31 +1,34 @@
 /*ESTILOS GENERALES*/
 :root {
-    --color-general-text: #333;
-    --color-backgroud-navbar: #3785e5;
+    --color-general-text: white;
+    --color-backgroud-navbar: #020314;
     --color-text-navbar: white;
-    --color-hover-navbar: #1756cc;
+    --color-hover-navbar: #4F28CC;
 
     --color-border-headers: #eee;
 
-    --color-background-btn-success: #5cb85c;
-    --color-border-btn-success: #4cae4c;
-    --color-background-btn-success-hover: #449d44;
-    --color-border-btn-success-hover: #398439;
+    --color-background-btn-success: #4F28CC;
+    --color-border-btn-success: #4F28CC;
+    --color-background-btn-success-hover: #4F28CC;
+    --color-border-btn-success-hover: #66afe9;
 
     --color-background-btn-delete: #d9534f;
     --color-border-btn-delete: #d43f3a;
     --color-background-btn-delete-hover: #c9302c;
     --color-border-btn-delete-hover: #ac2925;
 
-    --color-border-post: #ddd;
-    --color-name-user: #337ab7;
+    --color-border-post: #4F28CC;
+    --color-name-user: #4F28CC;
 
-    --color-text-black: #555;
+    --color-text-black: white;
     --color-text-nickname: #969393;
-    --color-number-stats: green;
+    --color-number-stats: #4F28CC;
 
     --color-border-textarea: #ccc;
     --color-border-textarea-focus: #66afe9;
+
+    --color-background: #020314;
+    --titles: white;
 
 }
 
@@ -50,6 +53,7 @@ body {
     font-size: 14px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: var(--color-general-text);
+    background-color: var(--color-background);
 }
 
 .layout{
@@ -62,7 +66,7 @@ body {
     width: 100%;
     height: 100%;
     max-height: 80rem;
-        
+    background-color: var(--color-background);
 }
 
 
@@ -140,6 +144,7 @@ body {
 .layout__content{
     grid-area: content;
     padding: 0 1.5rem;
+    background-color: var(--color-background);
 }
 
 .content__login{
@@ -162,6 +167,7 @@ body {
 .content__title, .aside__title{
     font-size: 3.5rem;
     margin-right: 1rem;
+    color: var(--titles)
 }
 
 .content__button{
@@ -290,7 +296,7 @@ body {
 .layout__aside{
     grid-area: aside;
     margin-right: 2rem;
-    
+    background-color: var(--color-background);
 }
 
 .aside__container{
@@ -303,6 +309,7 @@ body {
     padding: 2.5rem;
     margin-bottom: 2rem;
     border-radius: 0.4rem;
+    background-color: var(--color-background-aside);
 }
 
 .profile-info__general-info{
@@ -324,7 +331,7 @@ body {
 }
 
 .container-names__name{
-    color: var( --color-text-black);
+    color: var(--titles);
     font-size: 1.7rem;
 }
 
@@ -401,6 +408,7 @@ textarea{
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 700;
+    color: var(--titles)
 }
 
 .form-post__textarea,
