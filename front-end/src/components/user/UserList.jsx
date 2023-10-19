@@ -92,7 +92,12 @@ export const UserList = ({users, getUsers, following, setFollowing, loading, mor
                     </Link>
                     <span className="user-info__divider"> | </span>
                     <a className="user-info__create-date">
-                      <ReactTimeAgo date={user.created_at} locale="es-ES"/>
+                    {user.created_at && (
+                        <ReactTimeAgo
+                          date={user.created_at}
+                          locale="es-ES"
+                        />
+                      )}
                     </a>
                   </div>
 
