@@ -23,6 +23,6 @@ export const Logout = () => {
 
 
   return (
-    <h1>Cerrando sesión...</h1>
+    <h1>Login out..</h1>
   )
 }

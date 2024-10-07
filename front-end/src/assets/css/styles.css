@@ -1,24 +1,24 @@
 /*ESTILOS GENERALES*/
 :root {
-    --color-general-text: white;
-    --color-backgroud-navbar: #020314;
-    --color-text-navbar: white;
-    --color-hover-navbar: #4F28CC;
+    --color-general-text: black;
+    --color-backgroud-navbar: white;
+    --color-text-navbar: black;
+    /*--color-hover-navbar: #94afdd;*/
 
     --color-border-headers: #eee;
 
-    --color-background-btn-success: #4F28CC;
-    --color-border-btn-success: #4F28CC;
-    --color-background-btn-success-hover: #4F28CC;
-    --color-border-btn-success-hover: #66afe9;
+    --color-background-btn-success: #acc1e4;
+    --color-border-btn-success: #acc1e4;
+    --color-background-btn-success-hover: #94afdd;
+    --color-border-btn-success-hover: #94afdd;
 
-    --color-background-btn-delete: #d9534f;
-    --color-border-btn-delete: #d43f3a;
-    --color-background-btn-delete-hover: #c9302c;
-    --color-border-btn-delete-hover: #ac2925;
+    --color-background-btn-delete: #ac8bef;
+    --color-border-btn-delete: #ac8bef;
+    --color-background-btn-delete-hover: #a37def;
+    --color-border-btn-delete-hover: #a37def;
 
-    --color-border-post: #4F28CC;
-    --color-name-user: #4F28CC;
+    --color-border-post: #a092ce;
+    --color-name-user: black;
 
     --color-text-black: gray;
     --color-text-nickname: #969393;
@@ -27,8 +27,11 @@
     --color-border-textarea: #ccc;
     --color-border-textarea-focus: #66afe9;
 
-    --color-background: #020314;
-    --titles: #4F28CC;
+    --color-background: white;
+    --titles: black;
+    /*nuevos estilos*/
+    --cuadro-textos: white;
+    --cuadro-background-blue: #94afdd;
 
 }
 
@@ -51,7 +54,7 @@ body {
     width: 100%;
     height: 100%;
     font-size: 14px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
     color: var(--color-general-text);
     background-color: var(--color-background);
 }
@@ -73,31 +76,33 @@ body {
 /*ESTILOS NAVBAR*/
 .layout__navbar{
     width: 100%;
+    height: 100%;
     grid-area: nav;
     background-color: var(--color-backgroud-navbar);
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 2rem;
     height: 5.3rem;
 }
 
 .layout__navbar *{
-    color: var(--color-text-navbar);
+    background-color: var(--cuadro-textos);
 }
 
-.image-header{
-    width: 150px;
-    margin-top: 20px;
+.navbar__header{
+    width: 10%;
 }
 
 .navbar__title{
-    font-size: 1.8rem;
-    padding: 1.8rem;
+    width: 100%;
+}
+
+.image-header{
+    margin-top: 15px;
 }
 
 .navbar__container-lists{
-    width: 95%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding-left: 1.5rem;
@@ -113,8 +118,9 @@ body {
     padding: 1.8rem;
 }
 
-.menu-list__title{
-    padding: 0.5rem;
+.menu-list__title, svg{
+    margin-right: 1rem;
+    color: var(--cuadro-background-blue);
 }
 
 .navbar__title:hover, .menu-list__link:hover,
@@ -141,8 +147,11 @@ body {
     padding: 1.8rem;
 }
 
+
+
 .list-end__name{
     padding: 0.5rem;
+    color: var(--cuadro-background-blue);
 }
 
 /*ESTILOS DE CONTENIDO*/
@@ -157,9 +166,13 @@ body {
     margin-top: 4.5rem;
 }
 
+.content-header{
+    background-color: var(--cuadro-background-blue);
+}
+
 .content__header, .aside__header{
     width: 100%;
-    border-bottom: 1px solid var(--color-border-headers);
+    border-bottom: 1px solid var(--cuadro-background-blue);
     margin-top: 1rem;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
@@ -173,24 +186,31 @@ body {
 .content__title, .aside__title{
     font-size: 3.5rem;
     margin-right: 1rem;
-    color: var(--titles)
+    font-weight: 100;
+    color: var(--cuadro-background-blue);
+}
+
+.aside__title2{
+    display: inline-flex;
+    font-size: 3.5rem;
 }
 
 .content__button{
     background-color: var(--color-background-btn-success);
-    color: var(--color-text-navbar);
+    color: var(--cuadro-textos) !important;
     padding: 0.5rem 1rem;
     border: 1px solid var(--color-border-btn-success);
-    border-radius: 0.3rem;
+    border-radius: 5rem;
     font-size: 1.2rem;
     line-height: 1.5;
     cursor: pointer;
 }
 
 
-.content__button:hover, .content__btn-more-post:hover {
-    background-color: var(--color-background-btn-success-hover);
-    border-color: var(--color-border-btn-success-hover);
+.content__button:hover {
+    background-color: var(--cuadro-textos);
+    color: var(--cuadro-background-blue) !important;
+    border: 2px solid var(--cuadro-background-blue);
 }
 
 
@@ -205,8 +225,9 @@ body {
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 2rem;
-    border-radius: 0.4rem;
-    border: 1px solid var(--color-border-post);
+    border-radius: 5rem;
+    border: 1px solid var(--cuadro-background-blue);
+    background-color: var(--cuadro-background-blue);
     padding: 1.5rem;
     margin-right: 15px;
 }
@@ -236,17 +257,24 @@ body {
 }
 
 .user-info__name{
-    color: var(--color-name-user);
+    color: var(--cuadro-textos);
+    font-weight: bold;
+}
+
+.user-info__divider{
+    color: var(--cuadro-textos);
+
 }
 
 .user-info__create-date{
-    color: gray;
+    color: var(--cuadro-textos);
 }
 
 .post__content{
     margin: 1rem 0;
     font-size: 1.8rem;
     font-weight: 500;
+    color: var(--cuadro-textos)
 }
 
 .post__buttons{
@@ -256,28 +284,35 @@ body {
 }
 
 .post__button{
-    color: var(--color-text-navbar);
+    color: var(--cuadro-textos) !important;
     padding: 1rem 1.5rem;
     font-size: 1.4rem;
-    border-radius: 0.4rem;
+    border-radius: 6rem;
     background-color: var(--color-background-btn-delete);
     border-color: var(--color-border-btn-delete);
 }
 
 .post__button--green{
-    background-color: var(--color-background-btn-success);
-    border-color: var(--color-border-btn-success);
+    background-color: var(--cuadro-textos);
+    border-color: var(--cuadro-textos);
 }
 
+.icon-follow{
+    color: var(--cuadro-background-blue);
+    font-weight: bold;
+    font-size: 2rem;
+}
 
-.post__button:hover{
-    background-color: var(--color-background-btn-delete-hover);
-    border-color: var(--color-border-btn-delete-hover);
+.post__button:hover svg{
+    background-color: var(--cuadro-background-blue);
+    color: var(--cuadro-textos);
+    border-color: 2px solid var(--color-border-btn-delete-hover);
 }
 
 .post__button--green:hover{
     background-color: var(--color-background-btn-success-hover);
-    border-color: var(--color-border-btn-success-hover);    
+    border: 2px solid var(--cuadro-textos);    
+    color: var(--cuadro-textos);
 }
 
 .content__container-btn{
@@ -288,10 +323,22 @@ body {
 
 .content__btn-more-post{
     background-color: var(--color-background-btn-success);
-    color: var(--color-text-navbar);
+    color: var(--cuadro-textos) !important;
     padding: 0.5rem 1rem;
     border: 1px solid var(--color-border-btn-success);
-    border-radius: 0.3rem;
+    border-radius: 5rem;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    cursor: pointer;
+    font-size: 1.4rem;
+}
+
+.content__btn-more-post:hover{
+    background-color: var(--cuadro-textos);
+    color: var(--cuadro-background-blue) !important;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--cuadro-background-blue);
+    border-radius: 5rem;
     font-size: 1.2rem;
     line-height: 1.5;
     cursor: pointer;
@@ -311,11 +358,11 @@ body {
 }
 
 .aside__profile-info{
-    border: 1px solid var(--color-border-post);
+    border: 1px solid var(--color-background-btn-success-hover);
     padding: 2.5rem;
     margin-bottom: 2rem;
-    border-radius: 0.4rem;
-    background-color: var(--color-background-aside);
+    border-radius: 5rem;
+    background-color: var(--cuadro-background-blue);
 }
 
 .profile-info__general-info{
@@ -329,20 +376,22 @@ body {
     height: 7.5rem;
     border-radius: 100rem;
     margin-right: 1.5rem;
-    overflow: hidden;
+    
 }
 
 .container-avatar__img{
     height: 100%;
+    border-radius: 5rem;
 }
 
 .container-names__name{
-    color: var(--titles);
-    font-size: 1.7rem;
+    color: white;
+    font-size: 2.1rem;
+    font-weight: bold;
 }
 
 .container-names__nickname{
-    color: var( --color-text-nickname);
+    color: white;
     font-size: 1.7rem;
 }
 
@@ -370,24 +419,24 @@ body {
 .following__title{
     display: block;
     font-weight: bold;
-    color: var( --color-text-black);
+    color: white;
 }
 
 .following__number{
     font-weight: bold;
-    color: var(--color-number-stats);
+    color: white;
 }
 
 .following__link:hover >  .following__number{
-    color: var(--color-hover-navbar);
+    color: var(--color-border-post);
 }
 
 
 .aside__container-form{
     width: 100%;
-    border: 1px solid var(--color-border-post);
+    background-color: var(--cuadro-background-blue);
     padding: 2.5rem;
-    border-radius: 0.4rem;
+    border-radius: 5rem;
 }
 
 .container-form__form-post{
@@ -397,6 +446,7 @@ body {
 form{
     max-width: 300px;
 }
+
 
 .aside__container-form form{
     max-width: 100%;
@@ -410,11 +460,15 @@ textarea{
     margin-bottom: 1rem;
 }
 
-.form-post__label, label{
+.form-post__label{
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 700;
-    color: var(--titles)
+    color: var(--cuadro-textos)
+}
+
+label{
+    color: var(--cuadro-background-blue);
 }
 
 .form-post__textarea,
@@ -429,7 +483,7 @@ textarea{
     font-size: 14px;
     color: var( --color-text-black);
     border: 1px solid var(--color-border-textarea);
-    border-radius: 4px;
+    border-radius: 5rem;
     outline: none;
     box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
     transition: all ease-in-out 150ms;
@@ -452,12 +506,36 @@ textarea:focus{
 .form-post__btn-submit,
 input[type="submit"],
 button{
-    background-color: var(--color-background-btn-success);
-    color: var(--color-text-navbar) !important;
+    background-color: var(--cuadro-background-blue);
+    color: var(--cuadro-textos) !important;
     padding: 0.5rem 1rem;
     border: 1px solid var(--color-border-btn-success);
-    border-radius: 0.3rem;
+    border-radius: 3rem;
     font-size: 1.2rem;
+    font-weight: bold;
+    line-height: 1.5;
+    cursor: pointer;
+    font-size: 1.4rem;
+}
+
+
+input[type="submit"]:hover
+{
+    background-color: var(--cuadro-textos);
+    color: var(--cuadro-background-blue) !important;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--cuadro-background-blue);
+    border-radius: 3rem;
+}
+
+.form-post__btn-submit:hover{
+    background-color: var(--cuadro-background-blue);
+    border: 2px solid var(--cuadro-textos);
+    color: var(--cuadro-textos) !important;
+    padding: 0.5rem 1rem;
+    border-radius: 3rem;
+    font-size: 1.2rem;
+    font-weight: bold;
     line-height: 1.5;
     cursor: pointer;
     font-size: 1.4rem;
@@ -469,18 +547,19 @@ button{
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 3px;
+    text-align: center;
+    border-radius: 5rem;
 }
 
 .alert-success{
     background: #5cb85c;
-    border: 1px solid #0c8e0c;
     color: white;
 }
 
 .alert-danger{
-    background: #e84218;
-    border: 1px solid #e84218;
-    color: white;
+    background: #fc725de6;
+    border: 1px solid #fc725de6;
+    color: var(--cuadro-textos);
 }
 
 /*Rueda de carga*/

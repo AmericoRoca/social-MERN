@@ -52,7 +52,7 @@ export const People = () => {
   return (
     <>
       <header className="content__header">
-        <h1 className="content__title">Gente</h1>
+        <h1 className="content__title"> People</h1>
       </header>
 
       <UserList  users={users} 

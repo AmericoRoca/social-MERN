@@ -77,7 +77,7 @@ export const Sidebar = () => {
   return (
     <aside className="layout__aside">
       <header className="aside__header">
-        <h1 className="aside__title">Hola, {auth.name}</h1>
+        <h1 className="aside__title">Hi, <h1 className="aside__title2">{auth.name}</h1> !</h1>
       </header>
 
       <div className="aside__container">
@@ -111,20 +111,20 @@ export const Sidebar = () => {
           <div className="profile-info__stats">
             <div className="stats__following">
               <Link to={"following/" + auth._id} className="following__link">
-                <span className="following__title">Siguiendo</span>
+                <span className="following__title">Following</span>
                 <span className="following__number">{counters.following}</span>
               </Link>
             </div>
             <div className="stats__following">
               <Link to={"followers/"+auth._id} className="following__link">
-                <span className="following__title">Seguidores</span>
+                <span className="following__title">Followers</span>
                 <span className="following__number">{counters.followed}</span>
               </Link>
             </div>
 
             <div className="stats__following">
               <Link to={"/social/profile/"+auth._id} className="following__link">
-                <span className="following__title">Publicaciones</span>
+                <span className="following__title">Publications</span>
                 <span className="following__number">
                   {counters.publications}
                 </span>
@@ -137,7 +137,7 @@ export const Sidebar = () => {
           {stored == "stored" ? (
             <strong className="alert alert-success">
               {" "}
-              "Publicado correctamente !!"
+                Published successfully
             </strong>
           ) : (
             ""
@@ -145,7 +145,7 @@ export const Sidebar = () => {
           {stored == "error" ? (
             <strong className="alert alert-danger">
               {" "}
-              "Error en la publicación !!"
+              Error in the publication
             </strong>
           ) : (
             ""
@@ -158,7 +158,7 @@ export const Sidebar = () => {
           >
             <div className="form-post__inputs">
               <label htmlFor="text" className="form-post__label">
-                ¿Que estas pesando hoy?
+                What are you thinking today?
               </label>
               <textarea
                 name="text"
@@ -169,7 +169,7 @@ export const Sidebar = () => {
 
             <div className="form-post__inputs">
               <label htmlFor="file" className="form-post__label">
-                Sube tu foto
+                Upload your picture
               </label>
               <input
                 type="file"
@@ -181,7 +181,7 @@ export const Sidebar = () => {
 
             <input
               type="submit"
-              value="Enviar"
+              value="Send"
               className="form-post__btn-submit"
             />
           </form>

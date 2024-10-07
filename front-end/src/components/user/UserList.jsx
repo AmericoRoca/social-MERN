@@ -4,6 +4,8 @@ import { Global } from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 
 export const UserList = ({users, getUsers, following, setFollowing, loading, more, page, setPage}) => {
@@ -111,7 +113,7 @@ export const UserList = ({users, getUsers, following, setFollowing, loading, mor
                       className="post__button post__button--green"
                       onClick={() => follow(user._id)}
                     >
-                      Seguir
+                      <FontAwesomeIcon icon={faUserPlus} className="icon-follow"/>
                     </button>
                   )}
                   {following?.includes(user._id) && (
@@ -119,7 +121,7 @@ export const UserList = ({users, getUsers, following, setFollowing, loading, mor
                       className="post__button"
                       onClick={() => unfollow(user._id)}
                     >
-                      Dejar de seguir
+                      Unfollow
                     </button>
                   )}
                 </div>
@@ -137,7 +139,7 @@ export const UserList = ({users, getUsers, following, setFollowing, loading, mor
       {more && (
         <div className="content__container-btn">
           <button className="content__btn-more-post" onClick={nextPage}>
-            Ver mas publicaciones
+            See more
           </button>
         </div>
       )}

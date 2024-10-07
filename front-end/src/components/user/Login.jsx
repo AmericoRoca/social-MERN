@@ -60,7 +60,7 @@ export const Login = () => {
         {saved == "login" ? (
           <strong className="alert alert-success">
             {" "}
-            "Usuario logeado correctamente !!"
+            User logged in successfully
           </strong>
         ) : (
           ""
@@ -68,8 +68,8 @@ export const Login = () => {
         {saved == "error" ? (
           <strong className="alert alert-danger">
             {" "}
-            "Usuario incorrecto !!"
-          </strong>
+            Incorrect User
+            </strong>
         ) : (
           ""
         )}
@@ -85,7 +85,7 @@ export const Login = () => {
           </div>
           <input
             type="submit"
-            value="Identificate"
+            value="Sign In"
             className="btn btn-success"
           />
         </form>

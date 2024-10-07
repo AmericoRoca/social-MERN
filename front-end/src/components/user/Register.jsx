@@ -58,11 +58,11 @@ export const Register = () => {
         {saved == "error" ? <strong className="alert alert-danger"> "Usuario no registrado !!"</strong> : ''}
         <form action="" className="register-form" onSubmit={saveUser}>
           <div className="form-group">
-            <label htmlFor="name">Nombre</label>
+            <label htmlFor="name">Name</label>
             <input type="text" name="name" onChange={changed} />
           </div>
           <div className="form-group">
-            <label htmlFor="surname">Apellido</label>
+            <label htmlFor="surname">Surname</label>
             <input type="text" name="surname" onChange={changed} />
           </div>
           <div className="form-group">
@@ -74,11 +74,11 @@ export const Register = () => {
             <input type="email" name="email" onChange={changed} />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Contraseña</label>
+            <label htmlFor="password">Password</label>
             <input type="password" name="password" onChange={changed} />
           </div>
 
-          <input type="submit" value="Registrate" className="btn btn-success" />
+          <input type="submit" value="Sign Up" className="btn btn-success" />
         </form>
       </div>
     </>

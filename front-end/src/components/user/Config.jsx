@@ -86,7 +86,7 @@ export const Config = () => {
   return (
     <>
       <header className="content__header content__header--public">
-        <h1 className="content__title">Ajustes</h1>
+        <h1 className="content__title">Settings</h1>
       </header>
 
       <div className="content__posts">
@@ -108,11 +108,11 @@ export const Config = () => {
         )}
         <form  className="config-form" onSubmit={updateUser}>
           <div className="form-group">
-            <label htmlFor="name">Nombre</label>
+            <label htmlFor="name">Name</label>
             <input type="text" name="name" defaultValue={auth.name}/>
           </div>
           <div className="form-group">
-            <label htmlFor="surname">Apellido</label>
+            <label htmlFor="surname">Surname</label>
             <input type="text" name="surname" defaultValue={auth.surname}/>
           </div>
           <div className="form-group">
@@ -132,7 +132,7 @@ export const Config = () => {
             <input type="password" name="password"/>
           </div>
           <div className="form-group">
-            <label htmlFor="file">Imagen</label>
+            <label htmlFor="file">Image</label>
             <div className="general-info__container-avatar">
                     {auth.image != "default.png" && <img src={Global.url+"user/getAvatar/"+auth.image} className="container-avatar__img" alt="Foto de perfil"/>} 
                     {auth.image == "default.png" && <img src={avatar} className="container-avatar__img" alt="Foto de perfil"/>}      
@@ -141,7 +141,7 @@ export const Config = () => {
             <input type="file" name="file" id="file"/>
           </div>
             <br />
-          <input type="submit" value="Actualizar" className="btn btn-success" />
+          <input type="submit" value="Update" className="btn btn-success" />
         </form>
       </div>
     </>

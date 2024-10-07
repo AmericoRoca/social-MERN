@@ -4,9 +4,9 @@ import { Global } from "../../helpers/Global";
 import { Link, useParams } from "react-router-dom";
 import { GetProfile } from "../../helpers/GetProfile";
 import useAuth from "../../hooks/useAuth";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { PublicationList } from "../publication/PublicationList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 export const Profile = () => {
   
@@ -171,14 +171,14 @@ export const Profile = () => {
                     className="content__button content__button--rigth post__button"
                     onClick={() => unfollow(user._id)}
                   >
-                    Dejar de seguir
+                    Unfollow
                   </button>
                 ) : (
                   <button
                     className="content__button content__button--rigth"
                     onClick={() => follow(user._id)}
                   >
-                    Seguir
+                    <FontAwesomeIcon icon={faUserPlus} className="icon-follow"/>
                   </button>
                 ))}
             </div>
@@ -193,7 +193,7 @@ export const Profile = () => {
               to={"/social/following/" + user._id}
               className="following__link"
             >
-              <span className="following__title">Siguiendo</span>
+              <span className="following__title">Following</span>
               <span className="following__number">
                 {counters.following >= 1 ? counters.following : 0}
               </span>
@@ -204,7 +204,7 @@ export const Profile = () => {
               to={"/social/followers/" + user._id}
               className="following__link"
             >
-              <span className="following__title">Seguidores</span>
+              <span className="following__title">Followers</span>
               <span className="following__number">
                 {counters.followed >= 1 ? counters.followed : 0}
               </span>
@@ -213,7 +213,7 @@ export const Profile = () => {
 
           <div className="stats__following">
             <Link to={"/social/profile/" + user._id} className="following__link">
-              <span className="following__title">Publicaciones</span>
+              <span className="following__title">Publications</span>
               <span className="following__number">
                 {counters.publications >= 1 ? counters.publications : 0}
               </span>
