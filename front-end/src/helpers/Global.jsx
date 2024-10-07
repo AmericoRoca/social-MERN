@@ -1,3 +1,3 @@
 export const Global = {
-    url: "http://localhost:3900/api/"
+    url: "https://glacial-sierra-76096-9721b88745ee.herokuapp.com/"
 }
