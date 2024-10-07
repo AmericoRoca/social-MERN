@@ -1,5 +1,5 @@
 //import dependencies
-const { connection } = require("../api-rest/database/connection");
+const { connection } = require("./database/connection");
 const express = require("express");
 const cors = require("cors");
 
@@ -13,7 +13,7 @@ connection();
 
 //Node server
 const app = express();
-const port = 3900;
+const port = process.env.PORT || 3000;
 
 
 //Configure CORS
