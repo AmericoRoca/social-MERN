@@ -71,7 +71,7 @@ export const Following = () => {
   return (
     <>
       <header className="content__header">
-        <h1 className="content__title">Usuarios que sigue: {userProfile.name} {userProfile.surname}</h1>
+        <h1 className="content__title">Following: {userProfile.name} {userProfile.surname}</h1>
       </header>
 
       <UserList users={users} 
