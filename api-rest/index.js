@@ -2,8 +2,7 @@
 const { connection } = require("./database/connection");
 const express = require("express");
 const cors = require("cors");
-const bcrypt = require("bcryptjs");
-const User = require("./models/user");  // Asegúrate de tener el modelo de usuario
+
 
 // Mensaje de bienvenida
 console.log("API NODE WORKING!!");
