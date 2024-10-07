@@ -30,9 +30,9 @@ const publicationRoutes = require("./routes/publication");
 const followRoutes = require("./routes/follow");
 
 
-app.use("/api/user", userRoutes)
-app.use("/api/publication", publicationRoutes)
-app.use("/api/follow", followRoutes)
+app.use("/user", userRoutes)
+app.use("/publication", publicationRoutes)
+app.use("/follow", followRoutes)
 
 
 //test route
