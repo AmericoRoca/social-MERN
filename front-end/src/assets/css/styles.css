@@ -276,7 +276,9 @@ body {
     font-weight: 500;
     color: var(--cuadro-textos)
 }
-
+.post__content, img{
+    width: 50rem;
+}
 .post__buttons{
     display: flex;
     align-items: center;
@@ -290,6 +292,10 @@ body {
     border-radius: 6rem;
     background-color: var(--color-background-btn-delete);
     border-color: var(--color-border-btn-delete);
+}
+
+.button-trash svg{
+    color: var(--cuadro-textos) !important;
 }
 
 .post__button--green{

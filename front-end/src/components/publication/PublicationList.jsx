@@ -104,7 +104,7 @@ export const PublicationList = ({
               {auth._id == publication.user._id && (
                 <div className="post__buttons">
                   <button
-                    className="post__button"
+                    className="post__button button-trash"
                     onClick={() => deletePublication(publication._id)}
                   >
                     <FontAwesomeIcon icon={faTrashCan} />
